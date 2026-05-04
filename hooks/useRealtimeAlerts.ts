@@ -69,7 +69,7 @@ export function useRealtimeAlerts(
           }
         }
       )
-      })
+      .subscribe()
 
     return () => {
       isSubscribed = false
