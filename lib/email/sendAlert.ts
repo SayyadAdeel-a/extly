@@ -2,7 +2,15 @@ import { Resend } from 'resend'
 import { alertEmailHTML } from './templates/alertEmail'
 import type { DetectedChange } from '@/types'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+function getResend() {
+  const apiKey = process.env.RESEND_API_KEY
+  if (!apiKey) {
+    // During build, we might not have the key. 
+    // We only throw if we're actually trying to send an email.
+    return null
+  }
+  return new Resend(apiKey)
+}
 
 export async function sendAlertEmail({
   toEmail,
@@ -25,6 +33,11 @@ export async function sendAlertEmail({
     : `${extensionName} hit a user milestone`
 
   try {
+    const resend = getResend()
+    if (!resend) {
+      throw new Error('RESEND_API_KEY is not configured')
+    }
+
     const { data, error } = await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL || 'Extly <alerts@extly.com>',
       to: toEmail,
