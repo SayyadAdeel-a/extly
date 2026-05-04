@@ -33,11 +33,7 @@ export function useRealtimeExtension(
           }
         }
       )
-      .subscribe((status: string) => {
-        if (status === 'SUBSCRIBED') {
-          console.log('Subscribed to extension updates:', channelId)
-        }
-      })
+      .subscribe()
 
     return () => {
       isSubscribed = false

@@ -69,10 +69,6 @@ export function useRealtimeAlerts(
           }
         }
       )
-      .subscribe((status: string) => {
-        if (status === 'SUBSCRIBED') {
-          console.log('Successfully subscribed to alerts channel:', channelId)
-        }
       })
 
     return () => {

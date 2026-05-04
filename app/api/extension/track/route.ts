@@ -119,7 +119,6 @@ export async function POST(request: Request) {
     if ((snapshotCount ?? 0) < 7) {
       // Run backfill in background — don't await so user doesn't wait
       void backfillExtensionHistory(validId, extension!.id, serviceSupabase)
-        .then(count => console.log(`[track] Backfilled ${count} snapshots for ${validId}`))
         .catch(err => console.error('[track] Backfill error:', err))
     }
 
