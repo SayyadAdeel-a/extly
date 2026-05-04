@@ -4,8 +4,8 @@ import Link from 'next/link'
 import { Check, X } from 'lucide-react'
 
 export const metadata = {
-  title: 'Pricing - Extly Intelligence',
-  description: 'Simple, transparent pricing for Chrome extension monitoring and analytics.',
+  title: 'Pricing | Extly',
+  description: 'Start tracking Chrome extensions for free. Upgrade to Pro for more extensions and longer history.',
 }
 
 export default function PricingPage() {

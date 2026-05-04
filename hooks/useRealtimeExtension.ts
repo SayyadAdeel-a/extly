@@ -14,8 +14,11 @@ export function useRealtimeExtension(
   useEffect(() => {
     if (!extensionId) return
 
+    let isSubscribed = true
+    const channelId = `extension-${extensionId}-${Date.now()}`
+
     const channel = supabase
-      .channel(`extension-${extensionId}`)
+      .channel(channelId)
       .on(
         'postgres_changes',
         {
@@ -24,13 +27,20 @@ export function useRealtimeExtension(
           table: 'extension_snapshots',
           filter: `extension_id=eq.${extensionId}`,
         },
-        (payload) => {
-          setLatestSnapshot(payload.new as ExtensionSnapshot)
+        (payload: any) => {
+          if (isSubscribed) {
+            setLatestSnapshot(payload.new as ExtensionSnapshot)
+          }
         }
       )
-      .subscribe()
+      .subscribe((status: string) => {
+        if (status === 'SUBSCRIBED') {
+          console.log('Subscribed to extension updates:', channelId)
+        }
+      })
 
     return () => {
+      isSubscribed = false
       supabase.removeChannel(channel)
     }
   }, [extensionId, supabase])

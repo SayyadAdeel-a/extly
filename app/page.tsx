@@ -18,6 +18,11 @@ import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
 import { EmailCaptureForm } from '@/components/marketing/EmailCaptureForm'
 
+export const metadata = {
+  title: 'Extly — Real Time Chrome Extension Intelligence',
+  description: 'Get alerted the moment Chrome extensions change. Track ratings, versions, and user counts daily — not monthly like ChromeStats.',
+}
+
 export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen bg-bg-main text-text-primary">

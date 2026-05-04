@@ -5,7 +5,7 @@ import { SearchInput } from '@/components/search/SearchInput'
 
 export const metadata = {
   title: 'Search Chrome Extensions | Extly',
-  description: 'Search and track any Chrome extension in real time. Monitor ratings, user growth, and version history.',
+  description: 'Find and track any Chrome extension. Monitor ratings, user counts, and version history in real time.',
 }
 
 export default function SearchPage() {
