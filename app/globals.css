@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #FAFAFA;
+  --foreground: #0F1117;
+}
+
+body {
+  background-color: theme('colors.bg-main');
+  color: theme('colors.text-primary');
+}
+
+/* Recharts Tooltip Customization (Rule 03) */
+.recharts-tooltip-wrapper {
+  background-color: white !important;
+  border: 1px solid theme('colors.border-subtle') !important;
+  border-radius: 0.375rem !important;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05) !important;
+}
