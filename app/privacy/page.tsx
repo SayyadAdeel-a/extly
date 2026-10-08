@@ -1,92 +1,127 @@
+import React from 'react'
+import type { Metadata } from 'next'
 import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
+import { ShieldCheck, Database, EyeOff, Cookie, Server } from 'lucide-react'
 
-export const metadata = {
-  title: 'Privacy Policy - Extly Intelligence',
-  description: 'Our privacy policy and commitment to data protection.',
+export const metadata: Metadata = {
+  title: 'Privacy Policy | Extly — 100% Free & Zero-Tracking',
+  description: 'Extly Privacy Policy. Zero tracking cookies, zero account registrations, zero databases. Pure client-side privacy by design.',
 }
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-bg-main">
+    <div className="min-h-screen flex flex-col bg-bg-main text-text-primary">
       <Navbar />
       
       <main className="flex-grow container mx-auto px-6 py-16 md:py-24">
         <article className="max-w-3xl mx-auto">
+          {/* Header */}
           <header className="mb-12">
-            <h1 className="text-3xl font-bold text-text-primary mb-2">Privacy Policy</h1>
-            <p className="text-text-secondary text-sm">Last updated: May 2026</p>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-green-50 border border-green-200 text-accent-green rounded-full text-xs font-semibold mb-4">
+              <ShieldCheck size={14} />
+              <span>Privacy By Design</span>
+            </div>
+            <h1 className="text-4xl font-bold tracking-tight mb-2">Privacy Policy</h1>
+            <p className="text-text-secondary text-sm">Last updated: October 2026</p>
           </header>
 
           <div className="space-y-10 prose prose-sm max-w-none">
+            {/* Intro */}
+            <section className="bg-white p-6 rounded-2xl border border-border-subtle shadow-sm">
+              <p className="text-text-secondary leading-relaxed">
+                At <strong>Extly</strong>, privacy is not an afterthought — it is the core foundation of our architecture. 
+                Extly is a <strong>100% free and open-source platform</strong>. We do not require account registration, 
+                we do not store databases with user records, and we do not track or sell your personal data.
+              </p>
+            </section>
+
+            {/* 1. What We Don't Collect */}
             <section>
-              <h2 className="text-xl font-bold text-text-primary mb-4">1. What We Collect</h2>
-              <ul className="list-disc pl-5 space-y-2 text-text-secondary">
-                <li>Email address (for magic link authentication and sending alerts)</li>
-                <li>Which extensions you choose to track</li>
-                <li>Basic usage data via Vercel Analytics (page views only, no personal tracking)</li>
+              <h2 className="text-xl font-bold text-text-primary mb-4 flex items-center gap-2">
+                <EyeOff size={20} className="text-accent-blue" />
+                1. What We Do NOT Collect
+              </h2>
+              <ul className="list-disc pl-5 space-y-2 text-text-secondary leading-relaxed">
+                <li><strong>No Names or Emails:</strong> We do not ask for, collect, or store email addresses.</li>
+                <li><strong>No Passwords or Credentials:</strong> There are no accounts, user logins, or magic links.</li>
+                <li><strong>No Browsing History:</strong> We never access or inspect your personal browser history or which extensions you have installed in your browser.</li>
+                <li><strong>No Payment Details:</strong> Extly is 100% free forever; we never collect credit card or billing details.</li>
+                <li><strong>No Cross-Site Tracking:</strong> We do not use third-party advertising tracking pixels or retargeting scripts.</li>
               </ul>
             </section>
 
+            {/* 2. How Bookmarks Work (localStorage) */}
             <section>
-              <h2 className="text-xl font-bold text-text-primary mb-4">2. What We Don&apos;t Collect</h2>
-              <ul className="list-disc pl-5 space-y-2 text-text-secondary">
-                <li>We never collect your Chrome browsing history</li>
-                <li>We never access which extensions are installed on your browser</li>
-                <li>We never sell your data to any third party</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2 className="text-xl font-bold text-text-primary mb-4">3. How We Use Your Data</h2>
+              <h2 className="text-xl font-bold text-text-primary mb-4 flex items-center gap-2">
+                <Database size={20} className="text-accent-blue" />
+                2. Local Bookmarking (Zero-Database)
+              </h2>
+              <p className="text-text-secondary leading-relaxed mb-3">
+                When you click <em>&ldquo;Save to My List&rdquo;</em> on any extension, that information is saved directly inside your own web browser using 
+                standard HTML5 <code>localStorage</code>.
+              </p>
               <p className="text-text-secondary leading-relaxed">
-                We use your information to send you email alerts about extensions you track, 
-                to maintain your dashboard and tracking preferences, and to improve the 
-                product based on aggregate usage patterns.
+                This data stays on your local device and is <strong>never transmitted to any remote user database</strong>. 
+                You can clear your saved extensions at any time by clearing your browser cache or clicking the remove button in your saved list.
               </p>
             </section>
 
+            {/* 3. Cookies and Analytics */}
             <section>
-              <h2 className="text-xl font-bold text-text-primary mb-4">4. Data Storage</h2>
+              <h2 className="text-xl font-bold text-text-primary mb-4 flex items-center gap-2">
+                <Cookie size={20} className="text-accent-blue" />
+                3. Cookies & Technical Logs
+              </h2>
               <p className="text-text-secondary leading-relaxed">
-                All data is stored securely in Supabase (PostgreSQL). Data is encrypted 
-                at rest and in transit via HTTPS. Servers are located in the EU region 
-                to ensure high availability and data sovereignty.
+                Extly uses <strong>no tracking cookies</strong> and no persistent session cookies. 
+                Standard web server hosting (such as Vercel) may log anonymous operational request metadata (such as anonymized IP address, request method, and HTTP status code) solely for server reliability, denial-of-service defense, and performance monitoring.
               </p>
             </section>
 
+            {/* 4. Public Web Store Data */}
             <section>
-              <h2 className="text-xl font-bold text-text-primary mb-4">5. Email Communications</h2>
+              <h2 className="text-xl font-bold text-text-primary mb-4 flex items-center gap-2">
+                <Server size={20} className="text-accent-blue" />
+                4. Chrome Web Store Data
+              </h2>
               <p className="text-text-secondary leading-relaxed">
-                We only send alerts you explicitly signed up for. Every email includes a 
-                working unsubscribe link. We never send unsolicited marketing emails.
+                When you analyze an extension or perform a search, Extly fetches publicly available metadata from Google&apos;s Chrome Web Store in real time. 
+                All extension titles, user counts, ratings, and version numbers are public records available to any web browser.
               </p>
             </section>
 
+            {/* 5. Open Source Transparency */}
             <section>
-              <h2 className="text-xl font-bold text-text-primary mb-4">6. Deleting Your Data</h2>
+              <h2 className="text-xl font-bold text-text-primary mb-4">
+                5. Complete Open Source Transparency
+              </h2>
               <p className="text-text-secondary leading-relaxed">
-                You can delete your account anytime from the Settings page. All your data 
-                is permanently deleted within 30 days of account deletion. You may also 
-                email us at privacy@extly.com to request manual deletion.
+                Extly is fully open source under the MIT License. Anyone can audit the complete codebase, data flow, and scraper logic on our 
+                <a 
+                  href="https://github.com/SayyadAdeel-a/extly" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-accent-blue ml-1 font-medium hover:underline"
+                >
+                  GitHub repository
+                </a>.
               </p>
             </section>
 
-            <section>
-              <h2 className="text-xl font-bold text-text-primary mb-4">7. Contact</h2>
+            {/* 6. Contact */}
+            <section className="pt-6 border-t border-border-subtle">
+              <h2 className="text-xl font-bold text-text-primary mb-3">6. Questions & Contact</h2>
               <p className="text-text-secondary leading-relaxed">
-                For privacy questions or concerns, please contact us at: 
-                <a href="mailto:privacy@extly.com" className="text-accent-blue ml-1 hover:underline">
-                  privacy@extly.com
-                </a>
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-xl font-bold text-text-primary mb-4">8. Changes to This Policy</h2>
-              <p className="text-text-secondary leading-relaxed">
-                We will notify you by email if we make material changes to this privacy policy. 
-                Continued use of the service after such changes constitutes acceptance of the new policy.
+                If you have any questions about this Privacy Policy or Extly&apos;s open source architecture, feel free to open an issue or discussion on 
+                <a 
+                  href="https://github.com/SayyadAdeel-a/extly/issues" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-accent-blue ml-1 font-medium hover:underline"
+                >
+                  GitHub Issues
+                </a>.
               </p>
             </section>
           </div>
