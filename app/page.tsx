@@ -4,17 +4,18 @@ import {
   TrendingUp, 
   Sparkles, 
   Clock, 
-  ShieldCheck, 
+  Search, 
   BarChart3, 
-  ExternalLink,
-  Zap,
-  ArrowRight
+  Bookmark, 
+  Zap, 
+  ArrowRight,
+  ShieldCheck
 } from 'lucide-react'
 import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
 import { DirectAnalyzeHero } from '@/components/home/DirectAnalyzeHero'
 import { Card } from '@/components/ui/Card'
-import { Badge } from '@/components/ui/Badge'
+import { Button } from '@/components/ui/Button'
 
 export const metadata = {
   title: 'Extly — 100% Free Chrome Extension Analytics & Intelligence',
@@ -45,7 +46,7 @@ export default function HomePage() {
           </h1>
 
           <p className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto mb-10 leading-relaxed">
-            Paste any Chrome Web Store link. Immediately unlock real-time user counts, rating changes, and 90-day growth trends.
+            Paste any Chrome Web Store link or search by keyword. Immediately unlock real-time active users, rating changes, and 90-day growth trends.
           </p>
 
           {/* Direct Input Action Box */}
@@ -70,9 +71,9 @@ export default function HomePage() {
               <div className="h-12 w-12 rounded-xl bg-blue-50 text-accent-blue flex items-center justify-center font-bold">
                 <Clock size={24} />
               </div>
-              <h3 className="text-xl font-bold">Real-Time Daily Scrapes</h3>
+              <h3 className="text-xl font-bold">Real-Time On-Demand Scrapes</h3>
               <p className="text-text-secondary text-sm leading-relaxed">
-                ChromeStats and other directories refresh on a slow monthly cycle. Extly extracts live data on-demand the moment you request it.
+                Directories refresh on slow monthly cycles. Extly extracts live data on-demand the moment you search.
               </p>
             </Card>
 
@@ -82,7 +83,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-xl font-bold">90-Day Growth Curves</h3>
               <p className="text-text-secondary text-sm leading-relaxed">
-                Visualize install velocity and review trends across clean, interactive Recharts curves without having to configure dashboards.
+                Visualize install velocity and review trends across clean, interactive Recharts curves with zero setup.
               </p>
             </Card>
 
@@ -90,54 +91,79 @@ export default function HomePage() {
               <div className="h-12 w-12 rounded-xl bg-amber-50 text-accent-amber flex items-center justify-center font-bold">
                 <Zap size={24} />
               </div>
-              <h3 className="text-xl font-bold">Instant Changelogs</h3>
+              <h3 className="text-xl font-bold">Instant Changelogs & Bookmarks</h3>
               <p className="text-text-secondary text-sm leading-relaxed">
-                Track version updates and historical milestones. Pin extensions to your browser list to revisit anytime with a single click.
+                Track version updates and milestones. Pin extensions to your browser list to revisit anytime with 1 click.
               </p>
             </Card>
           </div>
         </div>
       </section>
 
-      {/* Direct Extension Showcase */}
+      {/* 3-Step Walkthrough Section (Replaces Hardcoded Extensions) */}
       <section className="py-20 bg-bg-main">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold tracking-tight mb-4">
-            Try It Now On A Top Extension
+            How It Works
           </h2>
-          <p className="text-text-secondary mb-10 max-w-xl mx-auto">
-            Click below to explore full analytics for some of the world's most popular extensions.
+          <p className="text-text-secondary mb-12 max-w-xl mx-auto">
+            Zero friction, zero database, and 100% free for developers and researchers.
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-left">
-            {[
-              { name: 'uBlock Origin', users: '40,000,000+', rating: '4.8 ★', id: 'cjpalhdlnbpafiamejdnhcphjbkeiagm', dev: 'Raymond Hill' },
-              { name: 'Grammarly', users: '45,000,000+', rating: '4.5 ★', id: 'kbfnbcaeplbcioakkpcpgfkobkghlhen', dev: 'Grammarly Inc.' },
-              { name: 'Dark Reader', users: '6,000,000+', rating: '4.7 ★', id: 'eimadpbcbfnmbkopoojfekhnkhdbieeh', dev: 'Alexander Shutau' },
-              { name: 'React DevTools', users: '4,000,000+', rating: '4.2 ★', id: 'fmkadmapgofadopljbjfkapdkoienihi', dev: 'Meta' },
-              { name: 'Loom Recorder', users: '8,000,000+', rating: '4.7 ★', id: 'liecbddmkiiihnedobmlmillhodjkdmb', dev: 'Loom' },
-              { name: 'Bitwarden', users: '5,000,000+', rating: '4.8 ★', id: 'nngceckbapebfimnlniiiahkandclblb', dev: 'Bitwarden Inc.' },
-            ].map((item) => (
-              <Link 
-                key={item.id} 
-                href={`/extension/${item.id}`}
-                className="bg-white border border-border-subtle rounded-xl p-5 hover:border-accent-blue hover:shadow-md transition-all group flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="font-bold text-text-primary group-hover:text-accent-blue transition-colors">{item.name}</h3>
-                    <Badge variant="blue">{item.rating}</Badge>
-                  </div>
-                  <p className="text-xs text-text-muted mb-4">by {item.dev}</p>
-                </div>
-                <div className="flex justify-between items-center text-xs font-mono text-text-secondary border-t border-border-subtle pt-3">
-                  <span>{item.users} users</span>
-                  <span className="text-accent-blue font-sans font-medium flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
-                    View <ArrowRight size={12} />
-                  </span>
-                </div>
-              </Link>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+            <div className="bg-white p-6 rounded-2xl border border-border-subtle shadow-sm flex flex-col justify-between">
+              <div>
+                <span className="font-mono text-xs font-bold text-accent-blue bg-blue-50 px-2.5 py-1 rounded-md mb-4 inline-block">
+                  Step 01
+                </span>
+                <h3 className="text-lg font-bold text-text-primary mb-2">Paste or Search</h3>
+                <p className="text-sm text-text-secondary leading-relaxed">
+                  Enter any Chrome Web Store link, 32-character extension ID, or keyword in the search bar.
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-border-subtle text-xs text-text-muted flex items-center gap-1.5">
+                <Search size={14} className="text-accent-blue" />
+                <span>Instant input detection</span>
+              </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-2xl border border-border-subtle shadow-sm flex flex-col justify-between">
+              <div>
+                <span className="font-mono text-xs font-bold text-accent-green bg-green-50 px-2.5 py-1 rounded-md mb-4 inline-block">
+                  Step 02
+                </span>
+                <h3 className="text-lg font-bold text-text-primary mb-2">Live Scrape & Parse</h3>
+                <p className="text-sm text-text-secondary leading-relaxed">
+                  Extly queries Google Chrome Web Store on-demand, extracting active user counts, ratings, and version history.
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-border-subtle text-xs text-text-muted flex items-center gap-1.5">
+                <BarChart3 size={14} className="text-accent-green" />
+                <span>Multi-layer resilient parser</span>
+              </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-2xl border border-border-subtle shadow-sm flex flex-col justify-between">
+              <div>
+                <span className="font-mono text-xs font-bold text-amber-600 bg-amber-50 px-2.5 py-1 rounded-md mb-4 inline-block">
+                  Step 03
+                </span>
+                <h3 className="text-lg font-bold text-text-primary mb-2">Analyze & Bookmark</h3>
+                <p className="text-sm text-text-secondary leading-relaxed">
+                  Explore interactive charts and save your favorite extensions locally in your browser with zero login.
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-border-subtle text-xs text-text-muted flex items-center gap-1.5">
+                <Bookmark size={14} className="text-amber-500" />
+                <span>Saved locally in browser</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-12">
+            <Button size="lg" href="/search" className="px-8 h-12">
+              Start Searching Extensions <ArrowRight size={18} className="ml-2" />
+            </Button>
           </div>
         </div>
       </section>

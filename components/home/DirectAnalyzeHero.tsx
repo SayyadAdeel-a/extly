@@ -6,15 +6,6 @@ import { Search, ArrowRight, Loader2, Sparkles, AlertCircle } from 'lucide-react
 import { extractChromeId } from '@/lib/scraper/extractId'
 import { Button } from '@/components/ui/Button'
 
-const POPULAR_EXAMPLES = [
-  { name: 'uBlock Origin', id: 'cjpalhdlnbpafiamejdnhcphjbkeiagm' },
-  { name: 'Grammarly', id: 'kbfnbcaeplbcioakkpcpgfkobkghlhen' },
-  { name: 'Dark Reader', id: 'eimadpbcbfnmbkopoojfekhnkhdbieeh' },
-  { name: 'React DevTools', id: 'fmkadmapgofadopljbjfkapdkoienihi' },
-  { name: 'Loom', id: 'liecbddmkiiihnedobmlmillhodjkdmb' },
-  { name: 'Bitwarden', id: 'nngceckbapebfimnlniiiahkandclblb' },
-]
-
 export function DirectAnalyzeHero() {
   const [inputVal, setInputVal] = useState('')
   const [loading, setLoading] = useState(false)
@@ -27,23 +18,21 @@ export function DirectAnalyzeHero() {
 
     const trimmed = inputVal.trim()
     if (!trimmed) {
-      setError('Please paste a Chrome Web Store link or extension ID')
+      setError('Please paste a Chrome Web Store link, extension ID, or keyword')
       return
     }
 
+    setLoading(true)
+
+    // 1. If it's a Chrome ID or full Chrome Web Store link, jump straight to the analytics page
     const chromeId = extractChromeId(trimmed)
-    if (!chromeId) {
-      setError('Invalid link or ID. Please paste a valid Chrome Web Store URL or 32-character ID.')
+    if (chromeId) {
+      router.push(`/extension/${chromeId}`)
       return
     }
 
-    setLoading(true)
-    router.push(`/extension/${chromeId}`)
-  }
-
-  const handleQuickPick = (id: string) => {
-    setLoading(true)
-    router.push(`/extension/${id}`)
+    // 2. If it's a keyword search (e.g. "adblock", "react", "translator"), jump to live search
+    router.push(`/search?q=${encodeURIComponent(trimmed)}`)
   }
 
   return (
@@ -60,7 +49,7 @@ export function DirectAnalyzeHero() {
                 setInputVal(e.target.value)
                 if (error) setError(null)
               }}
-              placeholder="Paste Chrome Web Store URL or Extension ID..."
+              placeholder="Paste any Chrome Web Store link, extension ID, or search keyword..."
               className="w-full bg-transparent text-text-primary placeholder:text-text-muted focus:outline-none text-base md:text-lg"
               disabled={loading}
               autoFocus
@@ -79,7 +68,7 @@ export function DirectAnalyzeHero() {
               </>
             ) : (
               <>
-                Analyze Extension
+                Analyze Now
                 <ArrowRight size={18} className="ml-2" />
               </>
             )}
@@ -94,23 +83,13 @@ export function DirectAnalyzeHero() {
         )}
       </form>
 
-      {/* Quick Picks */}
-      <div className="mt-8 flex flex-wrap items-center justify-center gap-2 text-sm">
-        <span className="text-text-muted flex items-center gap-1.5 font-medium mr-1">
-          <Sparkles size={14} className="text-accent-blue" />
-          Or try popular:
-        </span>
-        {POPULAR_EXAMPLES.map((ex) => (
-          <button
-            key={ex.id}
-            type="button"
-            onClick={() => handleQuickPick(ex.id)}
-            disabled={loading}
-            className="px-3.5 py-1.5 bg-white border border-border-subtle rounded-full text-text-secondary hover:text-accent-blue hover:border-accent-blue hover:bg-blue-50/50 transition-all shadow-sm text-xs md:text-sm font-medium"
-          >
-            {ex.name}
-          </button>
-        ))}
+      {/* Format Tips */}
+      <div className="mt-4 flex flex-wrap items-center justify-center gap-4 text-xs text-text-muted">
+        <span>✓ Direct URL paste</span>
+        <span>•</span>
+        <span>✓ 32-character Extension ID</span>
+        <span>•</span>
+        <span>✓ Keyword & developer search</span>
       </div>
     </div>
   )

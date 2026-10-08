@@ -28,13 +28,13 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Popular Tools */}
+          {/* Open Source Col */}
           <div>
-            <h4 className="text-xs font-bold text-text-primary uppercase tracking-widest mb-4">Quick Analysis</h4>
+            <h4 className="text-xs font-bold text-text-primary uppercase tracking-widest mb-4">Open Source</h4>
             <ul className="space-y-3">
-              <li><Link href="/extension/cjpalhdlnbpafiamejdnhcphjbkeiagm" className="text-sm text-text-secondary hover:text-accent-blue transition-colors">uBlock Origin Stats</Link></li>
-              <li><Link href="/extension/kbfnbcaeplbcioakkpcpgfkobkghlhen" className="text-sm text-text-secondary hover:text-accent-blue transition-colors">Grammarly Stats</Link></li>
-              <li><Link href="/extension/liecbddmkiiihnedobmlmillhodjkdmb" className="text-sm text-text-secondary hover:text-accent-blue transition-colors">Loom Stats</Link></li>
+              <li><Link href="https://github.com/SayyadAdeel-a/extly" target="_blank" rel="noopener noreferrer" className="text-sm text-text-secondary hover:text-accent-blue transition-colors">GitHub Repository</Link></li>
+              <li><Link href="/pricing" className="text-sm text-text-secondary hover:text-accent-blue transition-colors">Free Forever Policy</Link></li>
+              <li><Link href="https://github.com/SayyadAdeel-a/extly#readme" target="_blank" rel="noopener noreferrer" className="text-sm text-text-secondary hover:text-accent-blue transition-colors">API Documentation</Link></li>
             </ul>
           </div>
 
@@ -51,9 +51,18 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-border-subtle flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-text-muted text-xs">
-            © 2026 Extly. 100% Free & Open Utility.
+            © 2026 Extly. 100% Free & Open Source Utility.
           </p>
           <div className="flex items-center gap-6">
+            <Link 
+              href="https://github.com/SayyadAdeel-a/extly" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-text-muted hover:text-text-primary text-xs flex items-center gap-1.5 transition-colors"
+            >
+              <Globe size={14} />
+              GitHub
+            </Link>
             <span className="text-xs text-text-muted">Zero tracking • Zero cookies</span>
           </div>
         </div>

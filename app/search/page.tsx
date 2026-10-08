@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
 import { SearchInput } from '@/components/search/SearchInput'
@@ -26,7 +26,13 @@ export default function SearchPage() {
           </div>
         </header>
 
-        <SearchInput />
+        <Suspense fallback={
+          <div className="max-w-2xl mx-auto text-center py-12 text-text-muted">
+            Loading search...
+          </div>
+        }>
+          <SearchInput />
+        </Suspense>
       </main>
 
       <Footer />
