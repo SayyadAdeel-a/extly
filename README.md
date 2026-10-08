@@ -8,26 +8,39 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-Strict-blue)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38bdf8)](https://tailwindcss.com/)
 [![Zero Database](https://img.shields.io/badge/Database-Zero%20Config%20($0)-green)](https://github.com/SayyadAdeel-a/extly)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
 ---
 
-## 💡 The Problem & The Solution
+## 💡 Why Extly?
 
-- **The Problem:** Platforms like ChromeStats only refresh extension data on a slow monthly cadence and lock deeper metrics behind paywalls.
-- **The Solution:** **Extly** is a fast, frictionless, zero-maintenance analytics utility. Paste any Chrome Web Store link or extension ID and immediately get real-time active user metrics, rating histories, and 90-day growth curves.
+Developers and indie hackers building Chrome extensions need fast, reliable intelligence on their competitors and their own extensions. Existing platforms refresh on a slow monthly cadence and lock deeper metrics behind costly subscriptions.
+
+**Extly** was built to be a permanent, 100% free, and open-source utility that anyone can self-host or use immediately.
+
+### Extly vs. ChromeStats
+
+| Feature | Extly | ChromeStats |
+|---|---|---|
+| **Price** | **100% Free Forever** | Freemium ($29 - $199/mo) |
+| **Refresh Rate** | **Real-Time / Daily** | Monthly |
+| **Account Required** | **No (Zero Auth)** | Yes |
+| **Database Needed** | **None ($0 hosting cost)** | Complex Cloud DB |
+| **Source Code** | **100% Open Source (MIT)** | Proprietary / Closed |
+| **Bookmarking** | **Built-in (`localStorage`)** | Requires Login |
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FSayyadAdeel-a%2Fextly)
 
 ---
 
-## ✨ Key Features
+## ✨ Features
 
 - **⚡ Live On-Demand Scraper:** Resilient multi-layer data extraction (Google Web Store internal Ajax API + Schema.org JSON-LD / HTML fallback).
 - **📈 Smooth 90-Day Analytics:** Interactive, gradient-filled Recharts `AreaChart`s tracking user velocity and rating changes over time.
 - **🔄 Version History & Milestone Tracker:** Instant changelog displaying version releases, cadence, and user milestone events (10K, 100K, 1M+).
-- **💾 Zero-Database ($0 Cost):** No PostgreSQL, Redis, or external DB required. Data is retrieved on-demand with zero cold starts.
-- **📌 Browser-Side Bookmarking:** Users can pin and track favorite extensions locally via `localStorage` without needing an account.
-- **🚫 Zero Auth & Zero Friction:** No passwords, magic links, or email tracking walls. Just paste a link and analyze.
+- **💾 Zero-Database Architecture:** No PostgreSQL, Redis, or external DB required. Runs anywhere with zero configuration.
+- **📌 Browser-Side Bookmarking:** Users can pin and track favorite extensions locally via `localStorage` without creating an account.
+- **🚫 Zero Auth & Frictionless:** No passwords, magic links, cookies, or email capture walls.
 
 ---
 
@@ -52,6 +65,45 @@ npm run dev
 ```
 
 Visit [http://localhost:3000](http://localhost:3000) in your browser.
+
+---
+
+## 🔌 Free API Endpoints
+
+Extly can also be used as a free, headless Chrome extension scraper API for your own applications:
+
+### 1. Fetch Extension Intelligence
+```http
+GET /api/extension/fetch?id={CHROME_ID_OR_URL}
+```
+
+**Example:**
+```bash
+curl http://localhost:3000/api/extension/fetch?id=cjpalhdlnbpafiamejdnhcphjbkeiagm
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "chrome_id": "cjpalhdlnbpafiamejdnhcphjbkeiagm",
+    "name": "uBlock Origin",
+    "developer": "Raymond Hill",
+    "user_count": 40000000,
+    "rating": 4.8,
+    "review_count": 42000,
+    "version": "1.60.0",
+    "snapshots": [ ... ],
+    "alerts": [ ... ]
+  }
+}
+```
+
+### 2. Search Index
+```http
+GET /api/extension/search?q={QUERY}
+```
 
 ---
 
