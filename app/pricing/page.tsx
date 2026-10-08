@@ -23,7 +23,7 @@ export default function PricingPage() {
             <Sparkles size={14} />
             <span>Open & Free For Everyone</span>
           </div>
-          <h1 className="font-serif text-5xl md:text-6xl text-text-primary mb-4">
+          <h1 className="font-display font-extrabold text-5xl md:text-6xl text-text-primary tracking-tight mb-4">
             100% Free Forever
           </h1>
           <p className="text-text-secondary text-lg max-w-xl mx-auto">

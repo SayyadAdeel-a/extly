@@ -9,8 +9,8 @@ export function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand Col */}
           <div className="col-span-2 md:col-span-1">
-            <Link href="/" className="flex items-center gap-2 font-serif text-2xl text-accent-blue mb-4">
-              <Zap size={24} fill="currentColor" />
+            <Link href="/" className="flex items-center gap-2 font-display font-extrabold text-xl tracking-tight text-text-primary mb-4">
+              <Zap size={22} className="text-accent-blue" fill="currentColor" />
               <span>Extly</span>
             </Link>
             <p className="text-text-secondary text-sm leading-relaxed max-w-xs">

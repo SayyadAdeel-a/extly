@@ -21,7 +21,8 @@ const config: Config = {
         'accent-amber': '#F59E0B',   // Warnings, neutral changes
       },
       fontFamily: {
-        serif: ['var(--font-instrument-serif)', 'serif'],     // Hero headlines ONLY
+        display: ['var(--font-display)', 'var(--font-geist-sans)', 'system-ui', 'sans-serif'],
+        serif: ['var(--font-display)', 'system-ui', 'sans-serif'], // Fallback mapped to modern display sans
         sans: ['var(--font-geist-sans)', 'system-ui', 'sans-serif'], // All UI text
         mono: ['var(--font-geist-mono)', 'monospace'],        // ALL numbers, versions, IDs
       },

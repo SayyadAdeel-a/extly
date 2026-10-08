@@ -26,7 +26,7 @@ export default function SearchPage() {
               <Sparkles size={14} />
               <span>Free Live Chrome Web Store Intelligence</span>
             </div>
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-text-primary mb-6">
+            <h1 className="font-display font-extrabold text-4xl md:text-5xl lg:text-6xl text-text-primary tracking-tight mb-6">
               Search Chrome Extensions
             </h1>
             <p className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed">

@@ -25,7 +25,7 @@ export function Button({
   className = '',
   href,
 }: ButtonProps) {
-  const baseStyles = 'inline-flex items-center justify-center rounded-md font-medium transition-colors disabled:opacity-50 disabled:pointer-events-none'
+  const baseStyles = 'inline-flex items-center justify-center rounded-lg font-medium transition-all duration-150 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none'
   
   const variants = {
     primary: 'bg-accent-blue text-white hover:bg-blue-700',

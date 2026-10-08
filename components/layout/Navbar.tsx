@@ -18,9 +18,9 @@ export function Navbar() {
           <div className="flex items-center gap-3">
             <Link 
               href="/" 
-              className="flex items-center gap-2 font-serif text-2xl text-accent-blue hover:opacity-90 transition-opacity"
+              className="flex items-center gap-2 font-display font-extrabold text-xl tracking-tight text-text-primary hover:opacity-90 transition-opacity"
             >
-              <Zap size={24} fill="currentColor" />
+              <Zap size={22} className="text-accent-blue" fill="currentColor" />
               <span>Extly</span>
             </Link>
             <span className="hidden sm:inline-block bg-blue-50 text-accent-blue text-[11px] font-semibold px-2 py-0.5 rounded-full border border-blue-100">

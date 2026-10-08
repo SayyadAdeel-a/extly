@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Instrument_Serif } from "next/font/google";
+import { Inter, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Inter({
@@ -12,10 +12,10 @@ const geistMono = JetBrains_Mono({
   subsets: ["latin"],
 });
 
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument-serif",
-  weight: "400",
+const displaySans = Plus_Jakarta_Sans({
+  variable: "--font-display",
   subsets: ["latin"],
+  weight: ["600", "700", "800"],
 });
 
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://extly.dev";
@@ -108,7 +108,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} font-sans antialiased bg-bg-main text-text-primary min-h-full`}
+        className={`${geistSans.variable} ${geistMono.variable} ${displaySans.variable} font-sans antialiased bg-bg-main text-text-primary min-h-full`}
       >
         {children}
       </body>
