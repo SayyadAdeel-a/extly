@@ -101,6 +101,7 @@ export default function RootLayout({
           name="google-site-verification"
           content="b2eWOuLfwIqcz9QLrnpVqE5dsITdrH0S6HTgO0I30t8"
         />
+        <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM Context" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebsite) }}
