@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import { Zap, X as XIcon, Globe } from 'lucide-react'
+import { Zap, Globe } from 'lucide-react'
 
 export function Footer() {
   return (
@@ -14,7 +14,7 @@ export function Footer() {
               <span>Extly</span>
             </Link>
             <p className="text-text-secondary text-sm leading-relaxed max-w-xs">
-              Daily intelligence for Chrome extension developers. Monitor growth, track ratings, and stay ahead of the competition.
+              100% free real-time intelligence for Chrome extensions. No signup, no limits, no paywalls.
             </p>
           </div>
 
@@ -22,19 +22,19 @@ export function Footer() {
           <div>
             <h4 className="text-xs font-bold text-text-primary uppercase tracking-widest mb-4">Product</h4>
             <ul className="space-y-3">
-              <li><Link href="/search" className="text-sm text-text-secondary hover:text-accent-blue transition-colors">Search</Link></li>
-              <li><Link href="/pricing" className="text-sm text-text-secondary hover:text-accent-blue transition-colors">Pricing</Link></li>
-              <li><Link href="/dashboard" className="text-sm text-text-secondary hover:text-accent-blue transition-colors">Dashboard</Link></li>
+              <li><Link href="/" className="text-sm text-text-secondary hover:text-accent-blue transition-colors">Home</Link></li>
+              <li><Link href="/search" className="text-sm text-text-secondary hover:text-accent-blue transition-colors">Search & Analyze</Link></li>
+              <li><Link href="/saved" className="text-sm text-text-secondary hover:text-accent-blue transition-colors">Saved Extensions</Link></li>
             </ul>
           </div>
 
-          {/* Company Col */}
+          {/* Popular Tools */}
           <div>
-            <h4 className="text-xs font-bold text-text-primary uppercase tracking-widest mb-4">Company</h4>
+            <h4 className="text-xs font-bold text-text-primary uppercase tracking-widest mb-4">Quick Analysis</h4>
             <ul className="space-y-3">
-              <li><Link href="#" className="text-sm text-text-secondary hover:text-accent-blue transition-colors">About</Link></li>
-              <li><Link href="#" className="text-sm text-text-secondary hover:text-accent-blue transition-colors">Contact</Link></li>
-              <li><Link href="https://twitter.com" className="text-sm text-text-secondary hover:text-accent-blue transition-colors">Twitter</Link></li>
+              <li><Link href="/extension/cjpalhdlnbpafiamejdnhcphjbkeiagm" className="text-sm text-text-secondary hover:text-accent-blue transition-colors">uBlock Origin Stats</Link></li>
+              <li><Link href="/extension/kbfnbcaeplbcioakkpcpgfkobkghlhen" className="text-sm text-text-secondary hover:text-accent-blue transition-colors">Grammarly Stats</Link></li>
+              <li><Link href="/extension/liecbddmkiiihnedobmlmillhodjkdmb" className="text-sm text-text-secondary hover:text-accent-blue transition-colors">Loom Stats</Link></li>
             </ul>
           </div>
 
@@ -51,15 +51,10 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-border-subtle flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-text-muted text-xs">
-            © 2026 Extly. Built by Sayyad.
+            © 2026 Extly. 100% Free & Open Utility.
           </p>
           <div className="flex items-center gap-6">
-            <Link href="https://twitter.com" className="text-text-muted hover:text-accent-blue transition-colors">
-              <XIcon size={18} />
-            </Link>
-            <Link href="https://github.com" className="text-text-muted hover:text-accent-blue transition-colors">
-              <Globe size={18} />
-            </Link>
+            <span className="text-xs text-text-muted">Zero tracking • Zero cookies</span>
           </div>
         </div>
       </div>

@@ -1,7 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import React, { useState, useEffect } from 'react'
 import { ExtensionHeader } from '@/components/extension/ExtensionHeader'
 import { MetricsRow } from '@/components/extension/MetricsRow'
 import { UserGrowthChart } from '@/components/extension/UserGrowthChart'
@@ -9,48 +8,59 @@ import { RatingChart } from '@/components/extension/RatingChart'
 import { VersionTable } from '@/components/extension/VersionTable'
 import { ChangeLog } from '@/components/extension/ChangeLog'
 import { TrackCTABanner } from '@/components/extension/TrackCTABanner'
-import { useRealtimeExtension } from '@/hooks/useRealtimeExtension'
 import type { Extension, ExtensionSnapshot, Alert } from '@/types'
+
+const STORAGE_KEY = 'extly_saved_extensions'
 
 interface ExtensionDetailClientProps {
   extension: Extension
   initialSnapshots: ExtensionSnapshot[]
   initialAlerts: Alert[]
-  initialIsTracking: boolean
-  isLoggedIn: boolean
 }
 
 export function ExtensionDetailClient({
   extension,
   initialSnapshots,
   initialAlerts,
-  initialIsTracking,
-  isLoggedIn
 }: ExtensionDetailClientProps) {
-  const [isTracking, setIsTracking] = useState(initialIsTracking)
-  const [isUpdating, setIsUpdating] = useState(false)
-  const [snapshots, setSnapshots] = useState<ExtensionSnapshot[]>(initialSnapshots)
-  const router = useRouter()
+  const [isSaved, setIsSaved] = useState(false)
+  const [snapshots] = useState<ExtensionSnapshot[]>(initialSnapshots)
 
-  const { latestSnapshot } = useRealtimeExtension(extension.id)
-
-  React.useEffect(() => {
-    if (latestSnapshot) {
-      setSnapshots(prev => {
-        // Only add if not already present (based on snapshot_date)
-        const exists = prev.some(s => s.snapshot_date === latestSnapshot.snapshot_date)
-        if (exists) return prev
-        return [latestSnapshot, ...prev]
-      })
+  // Sync saved status with localStorage
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY)
+      if (raw) {
+        const savedList: string[] = JSON.parse(raw)
+        setIsSaved(savedList.includes(extension.chrome_id))
+      }
+    } catch {
+      // Ignore localStorage read errors
     }
-  }, [latestSnapshot])
+  }, [extension.chrome_id])
+
+  const handleToggleSave = () => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY)
+      let savedList: string[] = raw ? JSON.parse(raw) : []
+      if (isSaved) {
+        savedList = savedList.filter(id => id !== extension.chrome_id)
+        setIsSaved(false)
+      } else {
+        savedList.push(extension.chrome_id)
+        setIsSaved(true)
+      }
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(savedList))
+    } catch (e) {
+      console.error('Failed to update saved extensions:', e)
+    }
+  }
 
   const snapshotsCount = snapshots.length
   const firstSnapshotDate = snapshotsCount > 0 
     ? new Date([...snapshots].sort((a, b) => new Date(a.snapshot_date).getTime() - new Date(b.snapshot_date).getTime())[0].snapshot_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
     : ''
 
-  // Filter snapshots (simplified for now)
   const filteredSnapshots = [...snapshots].sort((a, b) => 
     new Date(a.snapshot_date).getTime() - new Date(b.snapshot_date).getTime()
   )
@@ -65,21 +75,18 @@ export function ExtensionDetailClient({
       return { userGrowth: 0, ratingChange: 0, reviewGrowth: 0 }
     }
 
-    // Growth vs 7d ago
     const usersToday = snaps[0]?.user_count || extension.user_count || 0
     const users7d = snaps.find(s => {
       const diff = Date.now() - new Date(s.snapshot_date).getTime()
       return diff >= 7 * 24 * 60 * 60 * 1000 && diff < 8 * 24 * 60 * 60 * 1000
     })?.user_count || snaps[snaps.length - 1].user_count || usersToday
     
-    // Rating vs 30d ago
     const ratingToday = snaps[0]?.rating || extension.rating || 0
     const rating30d = snaps.find(s => {
       const diff = Date.now() - new Date(s.snapshot_date).getTime()
       return diff >= 30 * 24 * 60 * 60 * 1000 && diff < 31 * 24 * 60 * 60 * 1000
     })?.rating || snaps[snaps.length - 1].rating || ratingToday
 
-    // Reviews vs 7d ago
     const reviewsToday = snaps[0]?.review_count || extension.review_count || 0
     const reviews7d = snaps.find(s => {
       const diff = Date.now() - new Date(s.snapshot_date).getTime()
@@ -94,39 +101,7 @@ export function ExtensionDetailClient({
   }
 
   const stats = calculateStats()
-
-  const handleTrackAction = async () => {
-    if (!isLoggedIn) {
-      router.push(`/login?returnUrl=/extension/${extension.chrome_id}`)
-      return
-    }
-
-    setIsUpdating(true)
-    try {
-      const res = await fetch('/api/extension/track', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          chromeId: extension.chrome_id,
-          action: isTracking ? 'untrack' : 'track'
-        })
-      })
-
-      if (res.ok) {
-        setIsTracking(!isTracking)
-        router.refresh()
-      } else {
-        const data = await res.json()
-        alert(data.error || 'Failed to update tracking status')
-      }
-    } catch (err) {
-      console.error('Tracking update failed:', err)
-    } finally {
-      setIsUpdating(false)
-    }
-  }
-
-  const periodLabel = snapshotsCount > 7 ? 'Last 30 Days' : 'Since tracking started'
+  const periodLabel = snapshotsCount > 7 ? 'Last 90 Days' : 'Real-time Analytics'
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8">
@@ -134,10 +109,10 @@ export function ExtensionDetailClient({
       <aside>
         <ExtensionHeader 
           extension={extension} 
-          isTracking={isTracking}
-          isUpdating={isUpdating}
-          onTrack={handleTrackAction}
-          onUntrack={handleTrackAction}
+          isTracking={isSaved}
+          isUpdating={false}
+          onTrack={handleToggleSave}
+          onUntrack={handleToggleSave}
         />
       </aside>
 
@@ -147,8 +122,8 @@ export function ExtensionDetailClient({
         <div className="space-y-6">
           <div className="flex justify-between items-center">
             <h2 className="text-xl font-bold text-text-primary">Analytics Overview</h2>
-            <div className="px-3 py-1 bg-gray-50 border border-border-subtle rounded-lg text-[10px] font-bold text-text-muted uppercase tracking-wider">
-              {periodLabel}
+            <div className="px-3 py-1 bg-green-50 border border-green-200 rounded-lg text-xs font-semibold text-accent-green uppercase tracking-wider">
+              100% Free Live Data
             </div>
           </div>
           
@@ -172,12 +147,11 @@ export function ExtensionDetailClient({
           <ChangeLog alerts={initialAlerts} />
         </div>
 
-        {/* Final CTA */}
+        {/* Share & Bookmark Banner */}
         <TrackCTABanner 
-          isLoggedIn={isLoggedIn} 
           extensionName={extension.name}
-          onTrack={handleTrackAction}
-          loading={isUpdating}
+          isSaved={isSaved}
+          onSave={handleToggleSave}
         />
       </div>
     </div>

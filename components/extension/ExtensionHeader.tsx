@@ -1,5 +1,5 @@
 import React from 'react'
-import { ExternalLink, Check, Plus, Loader2 } from 'lucide-react'
+import { ExternalLink, Check, Bookmark, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
 import { Card } from '@/components/ui/Card'
@@ -22,12 +22,8 @@ export function ExtensionHeader({
 }: ExtensionHeaderProps) {
   const lastUpdatedDate = extension.last_fetched_at 
     ? new Date(extension.last_fetched_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-    : 'Never'
+    : 'Today'
     
-  const isActive = extension.last_fetched_at 
-    ? (Date.now() - new Date(extension.last_fetched_at).getTime()) < 30 * 24 * 60 * 60 * 1000 
-    : false
-
   return (
     <div className="space-y-8">
       {/* Brand Card */}
@@ -41,11 +37,11 @@ export function ExtensionHeader({
             )}
           </div>
           <h1 className="text-2xl font-bold text-text-primary leading-tight mb-1">{extension.name}</h1>
-          <p className="text-text-secondary mb-4">by {extension.developer}</p>
+          <p className="text-text-secondary mb-4">by {extension.developer || 'Unknown Developer'}</p>
           
           <div className="flex flex-wrap justify-center gap-2 mb-6">
             <Badge variant="blue">Chrome Extension</Badge>
-            {isActive && <Badge variant="green">Active</Badge>}
+            <Badge variant="green">Live Real-time</Badge>
           </div>
           
           <div className="w-full h-px bg-border-subtle my-6" />
@@ -53,11 +49,15 @@ export function ExtensionHeader({
           <div className="w-full space-y-4 text-sm mb-6">
             <div className="flex justify-between items-center">
               <span className="text-text-muted">Version</span>
-              <span className="font-mono font-medium">{extension.version || '0.0.0'}</span>
+              <span className="font-mono font-medium">{extension.version || '1.0.0'}</span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-text-muted">Last Updated</span>
+              <span className="text-text-muted">Last Checked</span>
               <span>{lastUpdatedDate}</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-text-muted">Access</span>
+              <span className="text-accent-green font-semibold">100% Free</span>
             </div>
           </div>
           
@@ -65,28 +65,23 @@ export function ExtensionHeader({
             href={`https://chromewebstore.google.com/detail/${extension.chrome_id}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm font-semibold text-accent-blue hover:underline flex items-center gap-1.5 mb-8"
+            className="text-sm font-semibold text-accent-blue hover:underline flex items-center gap-1.5 mb-6"
           >
             View on Chrome Web Store <ExternalLink size={14} />
           </a>
           
           <div className="w-full pt-2">
             {isTracking ? (
-              <div className="flex flex-col gap-2">
-                <Button variant="secondary" className="w-full border-accent-green text-accent-green hover:bg-green-50 pointer-events-none">
-                  <Check size={16} className="mr-2" /> Tracking
-                </Button>
-                <button 
-                  onClick={onUntrack}
-                  disabled={isUpdating}
-                  className="text-xs text-accent-red font-medium hover:underline flex items-center justify-center gap-1 py-2 disabled:opacity-50"
-                >
-                  {isUpdating ? <Loader2 size={12} className="animate-spin" /> : 'Stop Tracking'}
-                </button>
-              </div>
+              <Button 
+                variant="secondary" 
+                onClick={onUntrack}
+                className="w-full border-accent-green text-accent-green hover:bg-green-50"
+              >
+                <Check size={16} className="mr-2" /> Saved in Browser
+              </Button>
             ) : (
-              <Button onClick={onTrack} loading={isUpdating} className="w-full">
-                <Plus size={16} className="mr-2" /> Track This Extension
+              <Button onClick={onTrack} className="w-full">
+                <Bookmark size={16} className="mr-2" /> Save to My List
               </Button>
             )}
           </div>

@@ -5,13 +5,13 @@ import { SearchInput } from '@/components/search/SearchInput'
 
 export const metadata = {
   title: 'Search Chrome Extensions | Extly',
-  description: 'Find and track any Chrome extension. Monitor ratings, user counts, and version history in real time.',
+  description: 'Find and analyze any Chrome extension in real time. Monitor ratings, user counts, and version history. 100% free.',
 }
 
 export default function SearchPage() {
   return (
     <div className="flex flex-col min-h-screen bg-bg-main">
-      <Navbar user={null} />
+      <Navbar />
 
       <main className="flex-1 pb-20">
         <header className="pt-20 pb-12 text-center">
@@ -20,8 +20,8 @@ export default function SearchPage() {
               Search Chrome Extensions
             </h1>
             <p className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed">
-              Find any extension and track its performance in real time.<br className="hidden md:block" /> 
-              Instant alerts on ratings, users, and versions.
+              Find any extension or paste a Chrome Web Store link directly.<br className="hidden md:block" /> 
+              Instant real-time analytics with zero signup.
             </p>
           </div>
         </header>

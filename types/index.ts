@@ -64,6 +64,7 @@ export interface Profile {
 export interface ScrapedExtension {
   chromeId: string
   name: string
+  description?: string | null
   userCount: number | null
   rating: number | null
   reviewCount: number | null
