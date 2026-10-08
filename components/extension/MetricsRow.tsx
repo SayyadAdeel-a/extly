@@ -27,9 +27,9 @@ export function MetricsRow({ extension, stats, snapshotsCount, firstSnapshotDate
           direction: 'neutral',
           period: ''
         } : {
-          value: `${stats.userGrowth > 0 ? '+' : ''}${formatNumber(stats.userGrowth)}`,
+          value: formatNumber(Math.abs(stats.userGrowth)),
           direction: stats.userGrowth > 0 ? 'up' : stats.userGrowth < 0 ? 'down' : 'neutral',
-          period: 'vs prev'
+          period: 'vs 7d'
         }}
       />
       
@@ -41,9 +41,9 @@ export function MetricsRow({ extension, stats, snapshotsCount, firstSnapshotDate
           direction: 'neutral',
           period: ''
         } : {
-          value: `${stats.ratingChange > 0 ? '+' : ''}${stats.ratingChange.toFixed(2)}`,
+          value: Math.abs(stats.ratingChange).toFixed(2),
           direction: stats.ratingChange > 0 ? 'up' : stats.ratingChange < 0 ? 'down' : 'neutral',
-          period: 'vs prev'
+          period: 'vs 30d'
         }}
       />
       
@@ -55,9 +55,9 @@ export function MetricsRow({ extension, stats, snapshotsCount, firstSnapshotDate
           direction: 'neutral',
           period: ''
         } : {
-          value: `${stats.reviewGrowth > 0 ? '+' : ''}${formatNumber(stats.reviewGrowth)}`,
+          value: formatNumber(Math.abs(stats.reviewGrowth)),
           direction: stats.reviewGrowth > 0 ? 'up' : stats.reviewGrowth < 0 ? 'down' : 'neutral',
-          period: 'vs prev'
+          period: 'vs 7d'
         }}
       />
       

@@ -21,11 +21,28 @@ export function ChangeLog({ alerts }: ChangeLogProps) {
     }
   }
 
+  const formatValue = (val: string | null) => {
+    if (!val) return '-'
+    const num = Number(val)
+    if (!isNaN(num) && val.length > 3 && !val.includes('.')) {
+      return num.toLocaleString()
+    }
+    return val
+  }
+
   const showEmptyState = sortedAlerts.length === 0
 
   return (
     <Card className="p-6 border-border-subtle shadow-sm bg-white">
-      <h3 className="text-lg font-bold mb-8 text-text-primary">Change Log</h3>
+      <div className="flex justify-between items-center mb-6">
+        <div>
+          <h3 className="text-lg font-bold text-text-primary">Change Log</h3>
+          <p className="text-xs text-text-muted mt-0.5">Detected milestone and version updates</p>
+        </div>
+        <span className="text-xs text-text-muted font-mono">
+          {sortedAlerts.length} events
+        </span>
+      </div>
       
       {showEmptyState ? (
         <div className="py-12 flex flex-col items-center justify-center text-center">
@@ -36,40 +53,40 @@ export function ChangeLog({ alerts }: ChangeLogProps) {
             Monitoring for changes
           </p>
           <p className="text-xs text-text-muted max-w-[200px]">
-            Changes will appear here as we detect them daily
+            Changes will appear here as updates are detected
           </p>
         </div>
       ) : (
-        <div className="relative space-y-8 before:absolute before:inset-0 before:ml-1.5 before:h-full before:w-0.5 before:bg-border-subtle">
+        <div className="relative space-y-6 before:absolute before:inset-0 before:ml-1.5 before:h-full before:w-0.5 before:bg-border-subtle">
           {sortedAlerts.map((alert) => (
-            <div key={alert.id} className="relative flex items-start gap-6 pl-8">
+            <div key={alert.id} className="relative flex items-start gap-4 pl-7">
               <div className={`absolute left-0 top-1.5 h-3 w-3 rounded-full border-2 border-white ring-1 ring-border-subtle ${getDotColor(alert.alert_type)}`} />
               
               <div className="flex-1 min-w-0">
-                <div className="flex justify-between items-center gap-4 mb-1">
-                  <p className="text-[10px] font-bold text-text-muted uppercase tracking-wider">
+                <div className="flex justify-between items-center gap-2 mb-1">
+                  <p className="text-[11px] font-semibold text-text-muted">
                     {new Date(alert.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                   </p>
-                  <div className="flex gap-2">
+                  <div>
                     {alert.alert_type === 'rating_change' && (
-                      <span className="text-[9px] font-bold text-accent-red bg-red-50 px-2 py-0.5 rounded-full uppercase border border-red-100">Rating</span>
+                      <span className="text-[10px] font-bold text-accent-red bg-red-50 px-2 py-0.5 rounded-full uppercase border border-red-100">Rating</span>
                     )}
                     {alert.alert_type === 'version_update' && (
-                      <span className="text-[9px] font-bold text-accent-blue bg-blue-50 px-2 py-0.5 rounded-full uppercase border border-blue-100">Update</span>
+                      <span className="text-[10px] font-bold text-accent-blue bg-blue-50 px-2 py-0.5 rounded-full uppercase border border-blue-100">Version</span>
                     )}
                     {alert.alert_type === 'user_milestone' && (
-                      <span className="text-[9px] font-bold text-accent-green bg-green-50 px-2 py-0.5 rounded-full uppercase border border-green-100">Milestone</span>
+                      <span className="text-[10px] font-bold text-accent-green bg-green-50 px-2 py-0.5 rounded-full uppercase border border-green-100">Milestone</span>
                     )}
                   </div>
                 </div>
-                <h4 className="text-sm font-semibold text-text-primary leading-tight">
+                <h4 className="text-sm font-semibold text-text-primary leading-snug">
                   {alert.message}
                 </h4>
                 {(alert.old_value || alert.new_value) && (
-                  <div className="mt-3 text-[10px] font-mono text-text-secondary bg-gray-50/80 p-2 rounded-lg border border-border-subtle flex items-center gap-2">
-                    <span className="opacity-60">{alert.old_value || '-'}</span> 
-                    <span className="text-text-muted">→</span> 
-                    <span className="font-bold text-text-primary">{alert.new_value || '-'}</span>
+                  <div className="mt-2.5 inline-flex items-center gap-2 text-xs font-mono text-text-secondary bg-gray-50 px-3 py-1.5 rounded-md border border-border-subtle">
+                    <span className="text-text-muted">{formatValue(alert.old_value)}</span> 
+                    <span className="text-text-muted font-sans font-bold">→</span> 
+                    <span className="font-semibold text-text-primary">{formatValue(alert.new_value)}</span>
                   </div>
                 )}
               </div>

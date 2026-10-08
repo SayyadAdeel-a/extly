@@ -2,15 +2,13 @@
 
 import React from 'react'
 import { 
-  BarChart, 
-  Bar, 
+  AreaChart, 
+  Area, 
   XAxis, 
   YAxis, 
   CartesianGrid, 
   Tooltip, 
-  ResponsiveContainer,
-  ReferenceLine,
-  Cell
+  ResponsiveContainer 
 } from 'recharts'
 import { Card } from '@/components/ui/Card'
 import type { ExtensionSnapshot } from '@/types'
@@ -32,40 +30,35 @@ export function RatingChart({ data, period, currentRating }: RatingChartProps) {
     return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
   }
 
-  const getGradientId = (rating: number | null) => {
-    if (!rating) return 'ratingGreen'
-    if (rating >= 4.0) return 'ratingGreen'
-    if (rating >= 3.5) return 'ratingAmber'
-    return 'ratingRed'
-  }
+  // Calculate suitable Y-axis bounds so small fluctuations are visible
+  const ratings = sortedData.map(d => d.rating).filter((r): r is number => r !== null && r !== undefined)
+  const minRating = ratings.length ? Math.min(...ratings) : 4.0
+  const maxRating = ratings.length ? Math.max(...ratings) : 5.0
+  const yMin = Math.max(0, Math.floor((minRating - 0.2) * 10) / 10)
+  const yMax = Math.min(5, Math.ceil((maxRating + 0.1) * 10) / 10)
 
   return (
     <Card className="p-6 h-[400px] border-border-subtle shadow-sm bg-white">
       <div className="flex justify-between items-center mb-6">
-        <h3 className="text-lg font-bold text-text-primary">Rating History</h3>
-        <p className="text-xs font-bold text-text-muted uppercase tracking-wider">
+        <div>
+          <h3 className="text-lg font-bold text-text-primary">Rating History</h3>
+          <p className="text-xs text-text-muted mt-0.5">Average score (out of 5.0)</p>
+        </div>
+        <span className="px-2.5 py-1 bg-green-50 text-accent-green text-[11px] font-semibold rounded-md border border-green-200">
           {period}
-        </p>
+        </span>
       </div>
       
-      <div className="h-[300px] w-full">
+      <div className="h-[290px] w-full">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={sortedData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }} barSize={sortedData.length === 1 ? 60 : undefined}>
+          <AreaChart data={sortedData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
             <defs>
-              <linearGradient id="ratingGreen" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#10B981" stopOpacity={1} />
-                <stop offset="100%" stopColor="#6EE7B7" stopOpacity={1} />
-              </linearGradient>
-              <linearGradient id="ratingAmber" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#F59E0B" stopOpacity={1} />
-                <stop offset="100%" stopColor="#FDE68A" stopOpacity={1} />
-              </linearGradient>
-              <linearGradient id="ratingRed" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#EF4444" stopOpacity={1} />
-                <stop offset="100%" stopColor="#FCA5A5" stopOpacity={1} />
+              <linearGradient id="ratingAreaGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#10B981" stopOpacity={0.22} />
+                <stop offset="95%" stopColor="#10B981" stopOpacity={0.01} />
               </linearGradient>
             </defs>
-            <CartesianGrid vertical={false} stroke="#E8ECF0" strokeDasharray="0" />
+            <CartesianGrid vertical={false} stroke="#E8ECF0" strokeDasharray="3 3" />
             <XAxis 
               dataKey="snapshot_date" 
               tickFormatter={formatDate}
@@ -73,41 +66,41 @@ export function RatingChart({ data, period, currentRating }: RatingChartProps) {
               tick={{ fill: '#9CA3AF', fontWeight: 500 }}
               axisLine={false}
               tickLine={false}
-              minTickGap={20}
+              minTickGap={28}
             />
             <YAxis 
-              domain={[0, 5]}
-              ticks={[0, 1, 2, 3, 4, 5]}
+              domain={[yMin, yMax]}
+              tickFormatter={(v) => Number(v).toFixed(1)}
               fontSize={11}
               tick={{ fill: '#9CA3AF', fontWeight: 500 }}
               axisLine={false}
               tickLine={false}
             />
             <Tooltip 
-              cursor={{ fill: '#F9FAFB' }}
+              cursor={{ stroke: '#10B981', strokeWidth: 1, strokeDasharray: '3 3' }}
               contentStyle={{ 
-                backgroundColor: '#FFF', 
+                backgroundColor: '#FFFFFF', 
                 border: '1px solid #E8ECF0', 
-                borderRadius: '12px',
+                borderRadius: '10px',
                 fontSize: '12px',
-                fontWeight: 'bold',
-                boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)',
-                padding: '12px'
+                fontWeight: 600,
+                boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.08)',
+                padding: '10px 14px'
               }}
               labelFormatter={formatDate}
-              formatter={(value: number) => [value.toFixed(2), 'Rating']}
+              formatter={(value: number) => [`${Number(value).toFixed(2)} ★`, 'Rating']}
             />
-            <ReferenceLine y={4.0} stroke="#9CA3AF" strokeDasharray="3 3" />
-            <Bar 
+            <Area 
+              type="monotone" 
               dataKey="rating" 
-              radius={[4, 4, 0, 0]}
-              animationDuration={1500}
-            >
-              {sortedData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={`url(#${getGradientId(entry.rating)})`} />
-              ))}
-            </Bar>
-          </BarChart>
+              stroke="#10B981" 
+              strokeWidth={2.5}
+              fill="url(#ratingAreaGradient)"
+              dot={false}
+              activeDot={{ r: 5, fill: '#10B981', stroke: '#FFFFFF', strokeWidth: 2 }}
+              animationDuration={800}
+            />
+          </AreaChart>
         </ResponsiveContainer>
       </div>
     </Card>
