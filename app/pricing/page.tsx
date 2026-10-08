@@ -6,6 +6,9 @@ import { Check, Sparkles } from 'lucide-react'
 export const metadata = {
   title: 'Pricing | Extly — 100% Free Forever',
   description: 'Extly is 100% free with unlimited Chrome extension lookups and 90 days of analytics history. No credit card, no sign up required.',
+  alternates: {
+    canonical: '/pricing',
+  },
 }
 
 export default function PricingPage() {

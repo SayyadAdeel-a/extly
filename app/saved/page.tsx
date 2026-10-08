@@ -7,6 +7,9 @@ import { SavedExtensionsList } from '@/components/saved/SavedExtensionsList'
 export const metadata: Metadata = {
   title: 'My Saved Extensions | Extly',
   description: 'Your pinned Chrome extensions. Monitor ratings, user growth, and version history in real-time.',
+  alternates: {
+    canonical: '/saved',
+  },
 }
 
 export default function SavedPage() {

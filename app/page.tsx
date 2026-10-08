@@ -20,6 +20,9 @@ import { Button } from '@/components/ui/Button'
 export const metadata = {
   title: 'Extly — 100% Free Chrome Extension Analytics & Intelligence',
   description: 'Analyze any Chrome extension in real time. Track users, ratings, and version history. 100% free, unlimited, no signup required.',
+  alternates: {
+    canonical: '/',
+  },
 }
 
 export default function HomePage() {

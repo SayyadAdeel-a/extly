@@ -7,6 +7,9 @@ import { FileText, CheckCircle2, AlertCircle, Scale, Code2, Globe } from 'lucide
 export const metadata: Metadata = {
   title: 'Terms of Service | Extly — 100% Free & Open Source',
   description: 'Extly Terms of Service. 100% free, unlimited, open source under the MIT License. Fair use guidelines and public data disclaimers.',
+  alternates: {
+    canonical: '/terms',
+  },
 }
 
 export default function TermsPage() {

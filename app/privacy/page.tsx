@@ -7,6 +7,9 @@ import { ShieldCheck, Database, EyeOff, Cookie, Server } from 'lucide-react'
 export const metadata: Metadata = {
   title: 'Privacy Policy | Extly — 100% Free & Zero-Tracking',
   description: 'Extly Privacy Policy. Zero tracking cookies, zero account registrations, zero databases. Pure client-side privacy by design.',
+  alternates: {
+    canonical: '/privacy',
+  },
 }
 
 export default function PrivacyPage() {
