@@ -120,10 +120,18 @@ export function ExtensionDetailClient({
       <div className="space-y-8">
         {/* Period Toggle & Metrics */}
         <div className="space-y-6">
-          <div className="flex justify-between items-center">
-            <h2 className="text-xl font-bold text-text-primary">Analytics Overview</h2>
-            <div className="px-3 py-1 bg-green-50 border border-green-200 rounded-lg text-xs font-semibold text-accent-green uppercase tracking-wider">
-              100% Free Live Data
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h2 className="font-display text-xl sm:text-2xl font-bold tracking-tight text-text-primary">
+                Analytics Overview
+              </h2>
+              <p className="text-xs text-text-muted mt-0.5">
+                Real-time store metrics parsed on-demand
+              </p>
+            </div>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 border border-emerald-200/60 rounded-full text-xs font-semibold text-emerald-700 font-mono self-start sm:self-auto">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span>Live Store Sync</span>
             </div>
           </div>
           

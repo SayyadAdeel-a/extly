@@ -25,7 +25,7 @@ export default function PrivacyPage() {
               <ShieldCheck size={14} />
               <span>Privacy By Design</span>
             </div>
-            <h1 className="text-4xl font-bold tracking-tight mb-2">Privacy Policy</h1>
+            <h1 className="font-display text-4xl font-extrabold tracking-tight mb-2">Privacy Policy</h1>
             <p className="text-text-secondary text-sm">Last updated: October 2026</p>
           </header>
 

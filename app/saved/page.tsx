@@ -19,7 +19,7 @@ export default function SavedPage() {
 
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-text-primary tracking-tight">
+          <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-text-primary tracking-tight">
             Saved Extensions
           </h1>
           <p className="text-text-secondary mt-1 text-sm">

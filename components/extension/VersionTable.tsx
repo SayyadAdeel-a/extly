@@ -42,9 +42,12 @@ export function VersionTable({ snapshots }: VersionTableProps) {
   const showEmptyState = versions.length <= 1
 
   return (
-    <Card className="overflow-hidden p-0 border-border-subtle shadow-sm bg-white">
+    <div className="bg-white rounded-2xl border border-border-subtle overflow-hidden shadow-xs">
       <div className="p-6 border-b border-border-subtle flex justify-between items-center">
-        <h3 className="text-lg font-bold text-text-primary">Version History</h3>
+        <div>
+          <h3 className="font-display text-base font-bold text-text-primary">Version History</h3>
+          <p className="text-xs text-text-muted mt-0.5">Chronological release tracking</p>
+        </div>
         {isFrequent && <Badge variant="blue">Ships frequently</Badge>}
       </div>
       
@@ -89,6 +92,6 @@ export function VersionTable({ snapshots }: VersionTableProps) {
           </table>
         </div>
       )}
-    </Card>
+    </div>
   )
 }

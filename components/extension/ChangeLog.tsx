@@ -33,13 +33,13 @@ export function ChangeLog({ alerts }: ChangeLogProps) {
   const showEmptyState = sortedAlerts.length === 0
 
   return (
-    <Card className="p-6 border-border-subtle shadow-sm bg-white">
+    <div className="bg-white rounded-2xl border border-border-subtle p-6 shadow-xs">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h3 className="text-lg font-bold text-text-primary">Change Log</h3>
+          <h3 className="font-display text-base font-bold text-text-primary">Change Log</h3>
           <p className="text-xs text-text-muted mt-0.5">Detected milestone and version updates</p>
         </div>
-        <span className="text-xs text-text-muted font-mono">
+        <span className="text-xs text-text-muted font-mono bg-gray-50 px-2 py-0.5 rounded border border-border-subtle">
           {sortedAlerts.length} events
         </span>
       </div>
@@ -94,6 +94,6 @@ export function ChangeLog({ alerts }: ChangeLogProps) {
           ))}
         </div>
       )}
-    </Card>
+    </div>
   )
 }

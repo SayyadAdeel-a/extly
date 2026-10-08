@@ -136,21 +136,21 @@ export function SearchInput() {
           </div>
         ) : searched ? (
           <div className="text-center py-16 bg-gray-50 rounded-2xl border border-dashed border-border-subtle">
-            <div className="bg-white p-4 rounded-full w-14 h-14 flex items-center justify-center mx-auto mb-3 shadow-sm">
+            <div className="bg-white p-4 rounded-full w-14 h-14 flex items-center justify-center mx-auto mb-3 shadow-xs border border-border-subtle">
               <SearchIcon size={24} className="text-text-muted" />
             </div>
-            <h3 className="text-lg font-bold mb-1">No extensions found</h3>
+            <h3 className="font-display text-lg font-bold mb-1 text-text-primary">No extensions found</h3>
             <p className="text-text-secondary text-sm max-w-sm mx-auto">
               No results found for &ldquo;{query}&rdquo;. <br />
               Try a different keyword or paste the full Chrome Web Store link.
             </p>
           </div>
         ) : (
-          <div className="text-center py-16 bg-white rounded-2xl border border-border-subtle">
-            <div className="bg-blue-50 text-accent-blue p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
+          <div className="text-center py-16 bg-white rounded-2xl border border-border-subtle shadow-xs">
+            <div className="bg-blue-50 text-accent-blue p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3 border border-blue-100">
               <Sparkles size={22} />
             </div>
-            <h3 className="text-base font-bold text-text-primary mb-1">
+            <h3 className="font-display text-base font-bold text-text-primary mb-1">
               Search Any Chrome Extension
             </h3>
             <p className="text-text-secondary text-sm max-w-md mx-auto">

@@ -25,7 +25,7 @@ export default function TermsPage() {
               <FileText size={14} />
               <span>Terms &amp; Fair Use</span>
             </div>
-            <h1 className="text-4xl font-bold tracking-tight mb-2">Terms of Service</h1>
+            <h1 className="font-display text-4xl font-extrabold tracking-tight mb-2">Terms of Service</h1>
             <p className="text-text-secondary text-sm">Last updated: October 2026</p>
           </header>
 

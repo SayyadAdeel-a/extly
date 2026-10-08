@@ -38,13 +38,13 @@ export function RatingChart({ data, period, currentRating }: RatingChartProps) {
   const yMax = Math.min(5, Math.ceil((maxRating + 0.1) * 10) / 10)
 
   return (
-    <Card className="p-6 h-[400px] border-border-subtle shadow-sm bg-white">
+    <div className="bg-white rounded-2xl border border-border-subtle p-6 shadow-xs h-[400px]">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h3 className="text-lg font-bold text-text-primary">Rating History</h3>
+          <h3 className="font-display text-base font-bold text-text-primary">Rating History</h3>
           <p className="text-xs text-text-muted mt-0.5">Average score (out of 5.0)</p>
         </div>
-        <span className="px-2.5 py-1 bg-green-50 text-accent-green text-[11px] font-semibold rounded-md border border-green-200">
+        <span className="px-2.5 py-1 bg-emerald-50 text-emerald-700 text-[11px] font-semibold rounded-md border border-emerald-200/60 font-mono">
           {period}
         </span>
       </div>
@@ -103,6 +103,6 @@ export function RatingChart({ data, period, currentRating }: RatingChartProps) {
           </AreaChart>
         </ResponsiveContainer>
       </div>
-    </Card>
+    </div>
   )
 }

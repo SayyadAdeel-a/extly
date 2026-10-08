@@ -14,14 +14,14 @@ export function ExtensionCard({ extension }: ExtensionCardProps) {
   const formattedUsers = new Intl.NumberFormat().format(extension.user_count || 0)
   
   return (
-    <Card className="hover:border-accent-blue transition-all group p-5">
+    <div className="bg-white rounded-2xl border border-border-subtle hover:border-gray-300 hover:shadow-md transition-all group p-5 shadow-xs">
       <div className="flex gap-4">
         {/* Icon */}
         <div className="h-16 w-16 bg-gray-50 border border-border-subtle rounded-xl flex-shrink-0 overflow-hidden flex items-center justify-center">
           {extension.icon_url ? (
             <img src={extension.icon_url} alt={extension.name} className="h-12 w-12 object-contain" />
           ) : (
-            <div className="text-accent-blue font-serif text-2xl font-bold">
+            <div className="text-accent-blue font-display text-2xl font-extrabold">
               {extension.name.charAt(0)}
             </div>
           )}
@@ -31,7 +31,7 @@ export function ExtensionCard({ extension }: ExtensionCardProps) {
         <div className="flex-1 min-w-0">
           <div className="flex justify-between items-start gap-2">
             <div className="min-w-0">
-              <h3 className="font-bold text-lg truncate group-hover:text-accent-blue transition-colors">
+              <h3 className="font-display font-bold text-base truncate group-hover:text-accent-blue transition-colors">
                 {extension.name}
               </h3>
               <p className="text-sm text-text-secondary truncate">
@@ -64,17 +64,17 @@ export function ExtensionCard({ extension }: ExtensionCardProps) {
           View Details <ArrowRight size={14} />
         </Link>
         
-        <Button size="sm" variant="secondary" href="/login">
-          Track
+        <Button size="sm" variant="secondary" href={`/extension/${extension.chrome_id}`}>
+          View Stats
         </Button>
       </div>
-    </Card>
+    </div>
   )
 }
 
 export function SkeletonCard() {
   return (
-    <Card className="p-5 animate-pulse">
+    <div className="bg-white rounded-2xl border border-border-subtle p-5 animate-pulse shadow-xs">
       <div className="flex gap-4">
         <div className="h-16 w-16 bg-gray-100 rounded-xl flex-shrink-0" />
         <div className="flex-1 space-y-3">
@@ -90,6 +90,6 @@ export function SkeletonCard() {
         <div className="h-4 bg-gray-100 rounded w-24" />
         <div className="h-8 bg-gray-100 rounded w-20" />
       </div>
-    </Card>
+    </div>
   )
 }

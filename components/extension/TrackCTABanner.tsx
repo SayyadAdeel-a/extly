@@ -22,22 +22,34 @@ export function TrackCTABanner({ extensionName, isSaved, onSave }: TrackCTABanne
   }
 
   return (
-    <div className="bg-blue-50 border border-blue-100 rounded-2xl p-8 md:p-12 text-center mt-12">
-      <div className="bg-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm border border-blue-100">
-        <Share2 className="text-accent-blue" size={24} />
+    <div className="bg-gradient-to-b from-white to-gray-50/80 border border-border-subtle rounded-2xl p-8 md:p-10 text-center mt-12 shadow-xs">
+      <div className="bg-blue-50 text-accent-blue w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-4 border border-blue-100">
+        <Share2 size={22} />
       </div>
-      <h3 className="text-2xl font-bold mb-3">Share or Save {extensionName}</h3>
-      <p className="text-text-secondary mb-8 max-w-lg mx-auto">
-        Extly is 100% free and open for everyone. Bookmark this extension to check updates anytime, or share this live analytics report with your team.
+      <h3 className="font-display text-2xl font-bold tracking-tight text-text-primary mb-2">
+        Share or Pin {extensionName}
+      </h3>
+      <p className="text-text-secondary text-sm mb-6 max-w-lg mx-auto leading-relaxed">
+        Extly is 100% free and open source. Pin this extension to your browser list for zero-friction tracking, or share this live intelligence report with your team.
       </p>
       
       <div className="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto">
-        <Button onClick={onSave} variant={isSaved ? "secondary" : "primary"} size="lg" className="h-12">
-          {isSaved ? <Check size={18} className="mr-2 text-accent-green" /> : <Bookmark size={18} className="mr-2" />}
-          {isSaved ? "Saved in Browser" : "Save to My List"}
+        <Button 
+          onClick={onSave} 
+          variant={isSaved ? "secondary" : "primary"} 
+          size="lg" 
+          className={`h-11 font-semibold ${isSaved ? "border-emerald-200 text-emerald-700 bg-emerald-50/40" : ""}`}
+        >
+          {isSaved ? <Check size={16} className="mr-2 text-emerald-600 stroke-[2.5]" /> : <Bookmark size={16} className="mr-2" />}
+          {isSaved ? "Saved to My List" : "Save to My List"}
         </Button>
-        <Button onClick={handleCopy} variant="secondary" size="lg" className="h-12 bg-white">
-          {copied ? <Check size={18} className="mr-2 text-accent-green" /> : <Copy size={18} className="mr-2" />}
+        <Button 
+          onClick={handleCopy} 
+          variant="secondary" 
+          size="lg" 
+          className="h-11 font-semibold bg-white"
+        >
+          {copied ? <Check size={16} className="mr-2 text-emerald-600 stroke-[2.5]" /> : <Copy size={16} className="mr-2" />}
           {copied ? "Link Copied!" : "Copy Report Link"}
         </Button>
       </div>

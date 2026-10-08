@@ -36,13 +36,13 @@ export function UserGrowthChart({ data, period }: UserGrowthChartProps) {
   }
 
   return (
-    <Card className="p-6 h-[400px] border-border-subtle shadow-sm bg-white">
+    <div className="bg-white rounded-2xl border border-border-subtle p-6 shadow-xs h-[400px]">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h3 className="text-lg font-bold text-text-primary">User Growth</h3>
+          <h3 className="font-display text-base font-bold text-text-primary">User Growth</h3>
           <p className="text-xs text-text-muted mt-0.5">Active users over time</p>
         </div>
-        <span className="px-2.5 py-1 bg-blue-50 text-accent-blue text-[11px] font-semibold rounded-md border border-blue-100">
+        <span className="px-2.5 py-1 bg-blue-50 text-accent-blue text-[11px] font-semibold rounded-md border border-blue-200/60 font-mono">
           {period}
         </span>
       </div>
@@ -101,6 +101,6 @@ export function UserGrowthChart({ data, period }: UserGrowthChartProps) {
           </AreaChart>
         </ResponsiveContainer>
       </div>
-    </Card>
+    </div>
   )
 }
